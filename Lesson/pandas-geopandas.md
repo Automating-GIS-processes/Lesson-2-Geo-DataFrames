@@ -1,4 +1,4 @@
-# Data analysis using Pandas and Geopandas
+# Introduction to Pandas and Geopandas
 
 ### Topics
 
