@@ -37,7 +37,8 @@ such as Shapefiles. It is also possible to work with rasters using geopandas wit
 Spatial data can be read easily with geopandas using `gpd.from_file()` -function:
 
 ```python
->>> %matplotlib notebook
+>>> # Magic for notebook purposes only
+... %matplotlib notebook
 >>> # Import necessary modules
 ... import geopandas as gpd
 >>> import matplotlib.pyplot as plt
@@ -48,8 +49,17 @@ Spatial data can be read easily with geopandas using `gpd.from_file()` -function
 >>> # Read file using gpd.read_file()
 ... data = gpd.read_file(fp)
 ...
->>> # Let's see what we got
-... # head() -function prints the first 5 rows by default
+>>> # Let's see what datatype is our 'data' variable
+... type(data)
+geopandas.geodataframe.GeoDataFrame
+```
+
+Okey so from the above we can see that our `data` -variable is a **GeoDataFrame**. GeoDataFrame extends the functionalities of **pandas.DataFrame** in a way that it is possible to use and handle spatial data within pandas (hence the name geopandas). GeoDataFrame have some special features and functions that are useful in GIS. 
+
+- Let's take a look at our data and print the first 5 rows
+
+```python
+>>> # head() -function prints the first 5 rows by default
 ... data.head()
               binomial category  \
 0   Stegastes leucorus       VU   
@@ -96,7 +106,7 @@ Spatial data can be read easily with geopandas using `gpd.from_file()` -function
 [5 rows x 24 columns]
 ```
 
- - Let's see how our data looks like on a map. If you just want to explore your data on a map, you can use `.plot()` -function in geopandas that creates a simple map out of the data (uses matplotlib as a backend):
+ - Let's also take a look how our data looks like on a map. If you just want to explore your data on a map, you can use `.plot()` -function in geopandas that creates a simple map out of the data (uses matplotlib as a backend):
 
 ```python
 >>> # Draw a simple map out of the data
@@ -105,69 +115,38 @@ Spatial data can be read easily with geopandas using `gpd.from_file()` -function
 <IPython.core.display.HTML object>
 ```
 
+GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is projected. 
+
+ - We can see the current coordinate reference system from .crs attribute:
+
+```python
+>>> # Show Coordinate Reference System
+... print(data.crs)
+{'init': 'epsg:4326'}
+```
+
+Okey, so from this we can see that the data is something called **epsg:4326**. The EPSG number (_"European Petroleum Survey Group"_) is a code that tells about the coordinate system of the dataset. "[EPSG Geodetic Parameter Dataset](http://www.epsg.org/) is a collection of definitions of coordinate reference systems and coordinate transformations which may be global, regional, national or local in application". EPSG-number 4326 that we have here belongs to the WGS84 coordinate system (i.e. coordinates are in decimal degrees (lat, lon)). You can check easily different epsg-codes from [this website](http://spatialreference.org/ref/epsg/).
+
 #### Writing a Shapefile
 
-We can select for example 50 rows of the input data and write those into a new Shapefile by first
-<a href="http://pandas.pydata.org/pandas-docs/stable/indexing.html" target="_blank">selecting the data using pandas functionalities</a> and then writing the selection with `gpd.to_file()` -function:
+Writing a new Shapefile is also something that is needed frequently. 
+
+- Let's select 50 first rows of the input data and write those into a new Shapefile by first selecting the data using index slicing and then write the selection into a Shapefile with `gpd.to_file()` -function:
 
 ```python
 >>> # Create a output path for the data
-... out = r"C:\HY-Data\HENTENKA\Data\DAMSELFISH_distributions_SELECTION.shp"
+... out = r"C:\HY-Data\HENTENKA\Data\AutoGIS16\Data\DAMSELFISH_distributions_SELECTION.shp"
 ...
 >>> # Select first 50 rows
 ... selection = data[0:50]
 ...
->>> # Print the head of our selection
-... print(selection.head())
-...
 >>> # Write those rows into a new Shapefile (the default output file format is Shapefile)
 ... selection.to_file(out)
-   ORIG_FID             binomial category  \
-0         0   Stegastes leucorus       VU   
-1         0   Stegastes leucorus       VU   
-2         0   Stegastes leucorus       VU   
-3         1  Chromis intercrusma       LC   
-4         1  Chromis intercrusma       LC   
-
-                                            citation      class_name compiler  \
-0  International Union for Conservation of Nature...  ACTINOPTERYGII     IUCN   
-1  International Union for Conservation of Nature...  ACTINOPTERYGII     IUCN   
-2  International Union for Conservation of Nature...  ACTINOPTERYGII     IUCN   
-3  International Union for Conservation of Nature...  ACTINOPTERYGII     IUCN   
-4  International Union for Conservation of Nature...  ACTINOPTERYGII     IUCN   
-
-  dist_comm     family_nam genus_name  \
-0      None  POMACENTRIDAE  Stegastes   
-1      None  POMACENTRIDAE  Stegastes   
-2      None  POMACENTRIDAE  Stegastes   
-3      None  POMACENTRIDAE    Chromis   
-4      None  POMACENTRIDAE    Chromis   
-
-                                            geometry  ...   rl_update  \
-0  POLYGON ((-115.6437454219999 29.71392059300007...  ...      2012.1   
-1  POLYGON ((-105.589950704 21.89339825500002, -1...  ...      2012.1   
-2  POLYGON ((-111.159618439 19.01535626700007, -1...  ...      2012.1   
-3  POLYGON ((-80.86500229899997 -0.77894492099994...  ...      2012.1   
-4  POLYGON ((-67.33922225599997 -55.6761029239999...  ...      2012.1   
-
-  seasonal shape_Area  shape_Leng source   species_na subpop  subspecies  \
-0        1  28.239363   82.368856   None     leucorus   None        None   
-1        1  28.239363   82.368856   None     leucorus   None        None   
-2        1  28.239363   82.368856   None     leucorus   None        None   
-3        1  87.461539  729.012180   None  intercrusma   None        None   
-4        1  87.461539  729.012180   None  intercrusma   None        None   
-
-   tax_comm  year  
-0      None  2010  
-1      None  2010  
-2      None  2010  
-3      None  2010  
-4      None  2010  
-
-[5 rows x 27 columns]
 ```
 
-### Creating geometries in Geopandas
+**Task:** Open the Shapefile now in QGIS that has been installed into our computer instance, and see how the data looks like.
+
+### Geometries in Geopandas
 
 Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for storing geometric information in geopandas.
 
@@ -208,8 +187,151 @@ Polygon area at index 3 is: 87.461
 Polygon area at index 4 is: 0.001
 ```
 
-```python
+ - Let's create a new column into our GeoDataFrame where we calculate and store the areas individual polygons:
 
-<IPython.core.display.Javascript object>
-<IPython.core.display.HTML object>
+```python
+>>> # Empty column for area
+... data['area'] = None
+...
+>>> # Let's iterate over the rows and calculate the areas
+... for index, row in data.iterrows():
+...     # Update the value in 'area' column with area information at index
+...     data.loc[index, 'area'] = row['geometry'].area
+...
+>>> # Let's see the first 2 rows of our 'area' column
+... data['area'].head(2)
+0    19.3963
+1     6.1459
+Name: area, dtype: object
 ```
+
+ - Let's check what is the mean and the max of those areas using familiar functions from our previous numpy lessions
+
+```python
+>>> max_area = data['area'].max()
+>>> min_area = data['area'].mean()
+...
+>>> print("Max area: %s\nMean area: %s" % (round(max_area, 2), round(min_area, 2)))
+Max area: 1493.2
+Mean area: 19.96
+```
+
+### Creating geometries into GeoDataFrame
+
+Since geopandas takes advantage of Shapely geometric objects it is possible to create a Shapefile from a scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into a Shapefile. 
+
+ - Let's create an empty `GeoDataFrame`.
+
+```python
+>>> # Import necessary modules first
+... import pandas as pd
+>>> import geopandas as gpd
+>>> from shapely.geometry import Point, Polygon
+>>> import fiona
+...
+>>> # Create an empty geopandas GeoDataFrame
+... newdata = gpd.GeoDataFrame()
+...
+>>> # Let's see what's inside
+... print(newdata)
+Empty GeoDataFrame
+Columns: []
+Index: []
+```
+
+The GeoDataFrame is empty since we haven't placed any data inside. 
+
+ - Let's create a new column called **geometry** that will contain our Shapely objects:
+
+```python
+>>> # Create a new column called 'geometry' to the GeoDataFrame
+... newdata['geometry'] = None
+...
+>>> # Let's see what's inside
+... print(newdata)
+Empty GeoDataFrame
+Columns: [geometry]
+Index: []
+```
+
+Now we have a geometry column in our GeoDataFrame but we don't have any data yet. 
+
+ - Let's create a Shapely Polygon repsenting the Helsinki Senate square that we can insert to our GeoDataFrame:
+
+```python
+>>> # Coordinates of the Helsinki Senate square in Decimal Degrees
+... coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
+...
+>>> # Create a Shapely polygon from the coordinate-tuple list
+... poly = Polygon(coordinates)
+...
+>>> print(poly)
+POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.950958 60.16999, 24.950899 60.169158))
+```
+
+Okey, so now we have appropriate Polygon -object. 
+
+ - Let's insert the polygon into our 'geometry' column in our GeoDataFrame:
+
+```python
+>>> # Insert the polygon into 'geometry' -column at index 0
+... newdata.loc[0, 'geometry'] = poly
+...
+>>> # Let's see what we have now
+... print(newdata)
+                                            geometry
+0  POLYGON ((24.950899 60.169158, 24.953492 60.16...
+```
+
+Now we have a GeoDataFrame with Polygon that we can export to a Shapefile. 
+
+ - Let's add another column to our GeoDataFrame called **Location** with text _Senaatintori_.
+
+```python
+>>> # Add a new column and insert data
+... newdata.loc[0, 'Location'] = 'Senaatintori'
+...
+>>> # Let's check the data
+... print(newdata)
+                                            geometry      Location
+0  POLYGON ((24.950899 60.169158, 24.953492 60.16...  Senaatintori
+```
+
+Okey, now we have additional information that is useful to be able to recognice what the feature represents. 
+
+Before exporting the data it is useful to **determine the spatial reference system for the GeoDataFrame.**
+
+As was shown earlier, GeoDataFrame has a property called *.crs* that shows the coordinatesystem of the data which is empty (None) in our case since we are creating the data from the scratch:
+
+```python
+>>> print(newdata.crs)
+None
+```
+
+ - Let's add a crs for our GeoDataFrame. A Python module called **fiona** has a nice function called `from_epsg()` for passing coordinate system for the GeoDataFrame. Next we will use that and determine the projection to WGS84 (epsg code: 4326):
+
+```python
+>>> # Import specific function 'from_epsg' from fiona module
+... from fiona.crs import from_epsg
+...
+>>> # Set the GeoDataFrame's coordinate system to WGS84
+... newdata.crs = from_epsg(4326)
+...
+>>> # Let's see how the crs definition looks like
+... print(newdata.crs)
+{'init': 'epsg:4326', 'no_defs': True}
+```
+
+ - Finally, we can export the data using GeoDataFrames `.to_file()` -function. The function works similarly as numpy or pandas, but here we only need to provide the output path for the Shapefile. Easy isn't it!:
+
+```python
+>>> # Determine the output path for the Shapefile
+... outfp = r"C:\HY-Data\HENTENKA\Data\Senaatintori.shp"
+...
+>>> # Write the data into that Shapefile
+... newdata.to_file(out)
+```
+
+Now we have successfully created a Shapefile from the scratch using only Python programming. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and create Shapefiles from those automatically. 
+
+**Task:** check the output Shapefile in QGIS and make sure that the attribute table seems correct.
