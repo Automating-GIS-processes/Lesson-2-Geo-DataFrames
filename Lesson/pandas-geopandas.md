@@ -26,18 +26,17 @@ syntax as numpy. However, all numpy functions are not included in pandas, such a
 Compared to numpy, pandas is also a more flexible and feature rich module (or framework) as it combines functionalities from other scientific Python -modules as well, such as [**scipy**]() and [**matplotlib**]() 
 for visualization purposes. Thus, you can use many of the features included in those packages even without importing them at all. 
 
-[**Geopandas**]() is an extension built on top of Pandas module.
-
-## Data processing in Pandas
-
-
+[**Geopandas**](http://geopandas.org/#description) is a Python module that is built on top of [Pandas](http://pandas.pydata.org/) extending its functionalities.  
+data analysis library. Geopandas makes it possible to work with spatial data stored e.g. in Shapefiles or PostGIS database. As Geopandas is built on top of Pandas, 
+it means that all functionalities of pandas works also in geopandas. Geopandas has many nice built-in spatial processing / analysis features such as overlay analysis, 
+geocoding, spatial aggregation methods and attribute / spatial joins that are all fairly useful and commonly used GIS-functionalities.  
+It is also possible to do some simple processing with rasters using geopandas with [rasterio](https://github.com/mapbox/rasterio) module 
+(see [example](http://gis.stackexchange.com/questions/151339/rasterize-a-shapefile-with-geopandas-or-fiona-python)), however there are more feature-rich Python modules for 
+doing raster analysis (will be covered during the [Lesson 7]()). 
 
 ## Working with spatial data using Geopandas
 
-[Geopandas](http://geopandas.org/#description) is a Python module that extends the functionalities of [Pandas](http://pandas.pydata.org/) 
-data analysis library (that takes advantage of [numpy](http://www.numpy.org/) module). Geopandas makes possible to work with spatial data 
-such as Shapefiles. It is also possible to work with rasters using geopandas with [rasterio](https://github.com/mapbox/rasterio) module 
-(see [example](http://gis.stackexchange.com/questions/151339/rasterize-a-shapefile-with-geopandas-or-fiona-python)). 
+Let's start working with spatial data right away using geopandas. 
 
 ### Data I/O (in / out) 
 
