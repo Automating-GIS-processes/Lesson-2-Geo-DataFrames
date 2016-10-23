@@ -3,8 +3,7 @@
 ### Topics
 
 1. What are Pandas or Geopandas -modules
-2. Data processing in Pandas
-3. Working with spatial data using Geopandas
+2. Working with spatial data using Geopandas
 
 ### Sources
 
@@ -37,7 +36,7 @@ doing raster analysis (will be covered during the [Lesson 7]()).
 
 ## Working with spatial data using Geopandas
 
-Let's start working with spatial data right away using geopandas. 
+Let's start working with spatial data using geopandas. 
 
 ### Data I/O (in / out) 
 
@@ -157,7 +156,8 @@ Writing a new Shapefile is also something that is needed frequently.
 
 ### Geometries in Geopandas
 
-Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for storing geometric information in geopandas.
+Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for storing 
+geometric information in geopandas.
 
  - Let's print the first 5 rows of the column 'geometry':
 
@@ -224,7 +224,6 @@ Name: area, dtype: object
 Max area: 1493.2
 Mean area: 19.96
 ```
-
 ### Creating geometries into GeoDataFrame
 
 Since geopandas takes advantage of Shapely geometric objects it is possible to create a Shapefile from a scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into a Shapefile. 
