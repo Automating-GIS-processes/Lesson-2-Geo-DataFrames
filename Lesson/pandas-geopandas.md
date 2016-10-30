@@ -121,6 +121,8 @@ are useful in GIS.
 ```
 ![simple map](../img/damselfish-simple-map.PNG)
 
+#### Coordinate reference system (CRS)
+
 GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is 
 projected. 
 
@@ -179,8 +181,8 @@ Since spatial data is stored as Shapely objects, **it is possible to use all of 
  - Let's print the areas of the first 5 polygons:
 
 ```python
->>> # Make a selection that contains only the first five rows
-... selection = data[0:5]
+# Make a selection that contains only the first five rows
+selection = data[0:5]
 ```
 
  - We can iterate over the selected rows using a specific `.iterrows()` -function in (geo)pandas:
@@ -201,16 +203,22 @@ Polygon area at index 4 is: 0.001
  - Let's create a new column into our GeoDataFrame where we calculate and store the areas individual polygons:
 
 ```python
->>> # Empty column for area
-... data['area'] = None
-...
->>> # Let's iterate over the rows and calculate the areas
-... for index, row in data.iterrows():
-...     # Update the value in 'area' column with area information at index
-...     data.loc[index, 'area'] = row['geometry'].area
-...
->>> # Let's see the first 2 rows of our 'area' column
-... data['area'].head(2)
+# Empty column for area
+data['area'] = None
+```
+
+-  Let's iterate over the rows and calculate the areas
+
+```
+for index, row in data.iterrows():
+    # Update the value in 'area' column with area information at index
+    data.loc[index, 'area'] = row['geometry'].area
+```
+ 
+ - Let's see the first 2 rows of our 'area' column
+
+```
+>>> data['area'].head(2)
 0    19.3963
 1     6.1459
 Name: area, dtype: object
@@ -221,7 +229,6 @@ Name: area, dtype: object
 ```python
 >>> max_area = data['area'].max()
 >>> min_area = data['area'].mean()
-...
 >>> print("Max area: %s\nMean area: %s" % (round(max_area, 2), round(min_area, 2)))
 Max area: 1493.2
 Mean area: 19.96
@@ -233,17 +240,17 @@ Since geopandas takes advantage of Shapely geometric objects it is possible to c
  - Let's create an empty `GeoDataFrame`.
 
 ```python
->>> # Import necessary modules first
-... import pandas as pd
->>> import geopandas as gpd
->>> from shapely.geometry import Point, Polygon
->>> import fiona
-...
->>> # Create an empty geopandas GeoDataFrame
-... newdata = gpd.GeoDataFrame()
-...
->>> # Let's see what's inside
-... print(newdata)
+# Import necessary modules first
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point, Polygon
+import fiona
+
+# Create an empty geopandas GeoDataFrame
+newdata = gpd.GeoDataFrame()
+
+# Let's see what's inside
+>>> print(newdata)
 Empty GeoDataFrame
 Columns: []
 Index: []
@@ -251,14 +258,14 @@ Index: []
 
 The GeoDataFrame is empty since we haven't placed any data inside. 
 
- - Let's create a new column called **geometry** that will contain our Shapely objects:
+ - Let's create a new column called `geometry` that will contain our Shapely objects:
 
 ```python
->>> # Create a new column called 'geometry' to the GeoDataFrame
-... newdata['geometry'] = None
-...
->>> # Let's see what's inside
-... print(newdata)
+# Create a new column called 'geometry' to the GeoDataFrame
+newdata['geometry'] = None
+
+# Let's see what's inside
+>>> print(newdata)
 Empty GeoDataFrame
 Columns: [geometry]
 Index: []
@@ -269,12 +276,12 @@ Now we have a geometry column in our GeoDataFrame but we don't have any data yet
  - Let's create a Shapely Polygon repsenting the Helsinki Senate square that we can insert to our GeoDataFrame:
 
 ```python
->>> # Coordinates of the Helsinki Senate square in Decimal Degrees
-... coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
-...
->>> # Create a Shapely polygon from the coordinate-tuple list
-... poly = Polygon(coordinates)
-...
+# Coordinates of the Helsinki Senate square in Decimal Degrees
+coordinates = [(24.950899, 60.169158), (24.953492, 60.169158), (24.953510, 60.170104), (24.950958, 60.169990)]
+
+# Create a Shapely polygon from the coordinate-tuple list
+poly = Polygon(coordinates)
+
 >>> print(poly)
 POLYGON ((24.950899 60.169158, 24.953492 60.169158, 24.95351 60.170104, 24.950958 60.16999, 24.950899 60.169158))
 ```
@@ -284,25 +291,25 @@ Okey, so now we have appropriate Polygon -object.
  - Let's insert the polygon into our 'geometry' column in our GeoDataFrame:
 
 ```python
->>> # Insert the polygon into 'geometry' -column at index 0
-... newdata.loc[0, 'geometry'] = poly
-...
->>> # Let's see what we have now
-... print(newdata)
+# Insert the polygon into 'geometry' -column at index 0
+newdata.loc[0, 'geometry'] = poly
+
+# Let's see what we have now
+>>> print(newdata)
                                             geometry
 0  POLYGON ((24.950899 60.169158, 24.953492 60.16...
 ```
 
 Now we have a GeoDataFrame with Polygon that we can export to a Shapefile. 
 
- - Let's add another column to our GeoDataFrame called **Location** with text _Senaatintori_.
+ - Let's add another column to our GeoDataFrame called `Location` with text _Senaatintori_.
 
 ```python
->>> # Add a new column and insert data
-... newdata.loc[0, 'Location'] = 'Senaatintori'
-...
->>> # Let's check the data
-... print(newdata)
+# Add a new column and insert data
+newdata.loc[0, 'Location'] = 'Senaatintori'
+
+# Let's check the data
+>>> print(newdata)
                                             geometry      Location
 0  POLYGON ((24.950899 60.169158, 24.953492 60.16...  Senaatintori
 ```
@@ -311,7 +318,8 @@ Okey, now we have additional information that is useful to be able to recognice 
 
 Before exporting the data it is useful to **determine the spatial reference system for the GeoDataFrame.**
 
-As was shown earlier, GeoDataFrame has a property called *.crs* that shows the coordinatesystem of the data which is empty (None) in our case since we are creating the data from the scratch:
+As was shown earlier, GeoDataFrame has a property called *.crs* that shows the coordinate system of the data which is empty (None) 
+in our case since we are creating the data from the scratch:
 
 ```python
 >>> print(newdata.crs)
@@ -321,27 +329,28 @@ None
  - Let's add a crs for our GeoDataFrame. A Python module called **fiona** has a nice function called `from_epsg()` for passing coordinate system for the GeoDataFrame. Next we will use that and determine the projection to WGS84 (epsg code: 4326):
 
 ```python
->>> # Import specific function 'from_epsg' from fiona module
-... from fiona.crs import from_epsg
-...
->>> # Set the GeoDataFrame's coordinate system to WGS84
-... newdata.crs = from_epsg(4326)
-...
->>> # Let's see how the crs definition looks like
-... print(newdata.crs)
+# Import specific function 'from_epsg' from fiona module
+from fiona.crs import from_epsg
+
+# Set the GeoDataFrame's coordinate system to WGS84
+newdata.crs = from_epsg(4326)
+
+# Let's see how the crs definition looks like
+>>> print(newdata.crs)
 {'init': 'epsg:4326', 'no_defs': True}
 ```
 
  - Finally, we can export the data using GeoDataFrames `.to_file()` -function. The function works similarly as numpy or pandas, but here we only need to provide the output path for the Shapefile. Easy isn't it!:
 
 ```python
->>> # Determine the output path for the Shapefile
-... outfp = r"C:\HY-Data\HENTENKA\Data\Senaatintori.shp"
-...
->>> # Write the data into that Shapefile
-... newdata.to_file(out)
+# Determine the output path for the Shapefile
+outfp = r"C:\HY-Data\HENTENKA\Data\Senaatintori.shp"
+
+# Write the data into that Shapefile
+newdata.to_file(out)
 ```
 
-Now we have successfully created a Shapefile from the scratch using only Python programming. Similar approach can be used to for example to read coordinates from a text file (e.g. points) and create Shapefiles from those automatically. 
+Now we have successfully created a Shapefile from the scratch using only Python programming. Similar approach can be used to for example to read 
+coordinates from a text file (e.g. points) and create Shapefiles from those automatically. 
 
 **Task:** check the output Shapefile in QGIS and make sure that the attribute table seems correct.
