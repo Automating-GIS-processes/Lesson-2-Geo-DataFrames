@@ -45,30 +45,29 @@ Let's start working with spatial data using geopandas.
 Spatial data can be read easily with geopandas using `gpd.from_file()` -function:
 
 ```python
->>> # Magic for notebook purposes only
-... %matplotlib notebook
->>> # Import necessary modules
-... import geopandas as gpd
->>> import matplotlib.pyplot as plt
-...
->>> # Set filepath
-... fp = r"C:\HY-Data\HENTENKA\Data\AutoGIS16\Data\DAMSELFISH_distributions.shp"
-...
->>> # Read file using gpd.read_file()
-... data = gpd.read_file(fp)
-...
->>> # Let's see what datatype is our 'data' variable
-... type(data)
+# Import necessary modules
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+# Set filepath
+fp = r"C:\HY-Data\HENTENKA\Data\AutoGIS16\Data\DAMSELFISH_distributions.shp"
+
+# Read file using gpd.read_file()
+data = gpd.read_file(fp)
+
+# Let's see what datatype is our 'data' variable
+>>> type(data)
 geopandas.geodataframe.GeoDataFrame
 ```
 
-Okey so from the above we can see that our `data` -variable is a **GeoDataFrame**. GeoDataFrame extends the functionalities of **pandas.DataFrame** in a way that it is possible to use and handle spatial data within pandas (hence the name geopandas). GeoDataFrame have some special features and functions that are useful in GIS. 
+Okey so from the above we can see that our `data` -variable is a **GeoDataFrame**. GeoDataFrame extends the functionalities of **pandas.DataFrame** in a 
+way that it is possible to use and handle spatial data within pandas (hence the name geopandas). GeoDataFrame have some special features and functions that 
+are useful in GIS. 
 
-- Let's take a look at our data and print the first 5 rows
+- Let's take a look at our data and print the first 5 rows using the `head()` -function prints the first 5 rows by default
 
 ```python
->>> # head() -function prints the first 5 rows by default
-... data.head()
+>>> data.head()
               binomial category  \
 0   Stegastes leucorus       VU   
 1   Stegastes leucorus       VU   
@@ -114,26 +113,29 @@ Okey so from the above we can see that our `data` -variable is a **GeoDataFrame*
 [5 rows x 24 columns]
 ```
 
- - Let's also take a look how our data looks like on a map. If you just want to explore your data on a map, you can use `.plot()` -function in geopandas that creates a simple map out of the data (uses matplotlib as a backend):
+ - Let's also take a look how our data looks like on a map. If you just want to explore your data on a map, you can use `.plot()` -function in 
+ geopandas that creates a simple map out of the data (uses matplotlib as a backend):
 
 ```python
->>> # Draw a simple map out of the data
-... data.plot()
-<IPython.core.display.Javascript object>
-<IPython.core.display.HTML object>
+>>> data.plot()
 ```
+![simple map](../img/dalselfish-simple-map.PNG)
 
-GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is projected. 
+GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is 
+projected. 
 
- - We can see the current coordinate reference system from .crs attribute:
+ - We can see the current coordinate reference system from `.crs`  attribute:
 
 ```python
->>> # Show Coordinate Reference System
-... print(data.crs)
+>>> print(data.crs)
 {'init': 'epsg:4326'}
 ```
 
-Okey, so from this we can see that the data is something called **epsg:4326**. The EPSG number (_"European Petroleum Survey Group"_) is a code that tells about the coordinate system of the dataset. "[EPSG Geodetic Parameter Dataset](http://www.epsg.org/) is a collection of definitions of coordinate reference systems and coordinate transformations which may be global, regional, national or local in application". EPSG-number 4326 that we have here belongs to the WGS84 coordinate system (i.e. coordinates are in decimal degrees (lat, lon)). You can check easily different epsg-codes from [this website](http://spatialreference.org/ref/epsg/).
+Okey, so from this we can see that the data is something called **epsg:4326**. The EPSG number (_"European Petroleum Survey Group"_) 
+is a code that tells about the coordinate system of the dataset. "[EPSG Geodetic Parameter Dataset](http://www.epsg.org/) is a collection 
+of definitions of coordinate reference systems and coordinate transformations which may be global, regional, national or local in application". 
+EPSG-number 4326 that we have here belongs to the WGS84 coordinate system (i.e. coordinates are in decimal degrees (lat, lon)). You can check easily 
+different epsg-codes from [this website](http://spatialreference.org/ref/epsg/).
 
 #### Writing a Shapefile
 
@@ -142,14 +144,14 @@ Writing a new Shapefile is also something that is needed frequently.
 - Let's select 50 first rows of the input data and write those into a new Shapefile by first selecting the data using index slicing and then write the selection into a Shapefile with `gpd.to_file()` -function:
 
 ```python
->>> # Create a output path for the data
-... out = r"C:\HY-Data\HENTENKA\Data\AutoGIS16\Data\DAMSELFISH_distributions_SELECTION.shp"
-...
->>> # Select first 50 rows
-... selection = data[0:50]
-...
->>> # Write those rows into a new Shapefile (the default output file format is Shapefile)
-... selection.to_file(out)
+# Create a output path for the data
+out = r"/home/geo/DAMSELFISH_distributions_SELECTION.shp"
+
+# Select first 50 rows
+selection = data[0:50]
+
+# Write those rows into a new Shapefile (the default output file format is Shapefile)
+selection.to_file(out)
 ```
 
 **Task:** Open the Shapefile now in QGIS that has been installed into our computer instance, and see how the data looks like.
