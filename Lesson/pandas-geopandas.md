@@ -119,7 +119,7 @@ are useful in GIS.
 ```python
 >>> data.plot()
 ```
-![simple map](../img/dalselfish-simple-map.PNG)
+![simple map](../img/damselfish-simple-map.PNG)
 
 GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is 
 projected. 
