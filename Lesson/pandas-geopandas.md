@@ -2,13 +2,23 @@
 
 ### Topics
 
-1. What are Pandas or Geopandas -modules
-2. Working with spatial data using Geopandas
+- [What are Pandas or Geopandas -modules](#what-are-pandas-and-geopandas--modules)
+- [Download and extract the lesson materials](#downloading-and-extracting-data)
+
+Working with Geopandas: 
+
+1. [Data in / out](#data-i-o--in-out) 
+  - [Reading a Shapefile](#reading-a-shapefile)
+  - [Coordinate reference system (CRS)](#coordinate-reference-system-crs)
+  - [Writing a Shapefile](#writing-a-shapefile)
+2. [Geometries in Geopandas](#geometries-in-geopandas)
+  - [Creating geometries into GeoDataFrame](#creating-geometries-into-geodataframe)
+3. [Pro -tips (optional but recommended)](#pro--tips-optional-but-recommended)
+  - [Grouping data](#grouping-data)
 
 ### Sources
 
-These materials are partly based on [Pandas introductory tutorial](http://pandas.pydata.org/pandas-docs/version/0.15.2/10min.html#min) 
-and Geopandas documentation.
+These materials are partly based on [Geopandas documentation](http://geopandas.org/#description).
 
 ## What are Pandas and Geopandas -modules?
 
@@ -48,13 +58,11 @@ DAMSELFISH_distributions.shp   DAMSELFISH_distributions.shp.xml   DAMSELFISH_dis
 ```
 The Data folder includes a Shapefile called **DAMSELFISH_distribution.shp** (and files related to it).
 
-## Working with spatial data using Geopandas
+## Data I/O (in / out)
 
-Let's start working with spatial data using geopandas. 
+Let's start working with spatial data using geopandas.
 
-### Data I/O (in / out) 
-
-#### Reading a Shapefile
+### Reading a Shapefile
 
 Spatial data can be read easily with geopandas using `gpd.from_file()` -function:
 
@@ -135,7 +143,7 @@ are useful in GIS.
 ```
 ![simple map](../img/damselfish-simple-map.PNG)
 
-#### Coordinate reference system (CRS)
+### Coordinate reference system (CRS)
 
 GeoDataFrame that is read from a Shapefile contains _always_ (well not always but should) information about the coordinate system in which the data is 
 projected. 
@@ -153,7 +161,7 @@ of definitions of coordinate reference systems and coordinate transformations wh
 EPSG-number 4326 that we have here belongs to the WGS84 coordinate system (i.e. coordinates are in decimal degrees (lat, lon)). You can check easily 
 different epsg-codes from [this website](http://spatialreference.org/ref/epsg/).
 
-#### Writing a Shapefile
+### Writing a Shapefile
 
 Writing a new Shapefile is also something that is needed frequently. 
 
@@ -172,7 +180,7 @@ selection.to_file(out)
 
 **Task:** Open the Shapefile now in QGIS that has been installed into our computer instance, and see how the data looks like.
 
-### Geometries in Geopandas
+## Geometries in Geopandas
 
 Geopandas takes advantage of Shapely's geometric objects. Geometries are stored in a column called *geometry* that is a default column name for storing 
 geometric information in geopandas.
@@ -370,7 +378,7 @@ coordinates from a text file (e.g. points) and create Shapefiles from those auto
 
 **Task:** check the output Shapefile in QGIS and make sure that the attribute table seems correct.
 
-## Pro -tips (optional - recommended!)
+## Pro -tips (optional but recommended)
 
 ### Grouping data
 
