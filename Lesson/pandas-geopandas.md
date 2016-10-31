@@ -248,34 +248,6 @@ Max area: 1493.2
 Mean area: 19.96
 ```
 
-### Grouping data
-
-One really useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
-This function groups data based on values on selected column(s). 
-
-- Let's group individual fishes in `DAMSELFISH_distribution.shp` and export the species to individual Shapefiles.
-
-```python
-# Group the data by column 'binomial'
->>> grouped = data.groupby('binomial')
-
-# Let's see what we got
->>> grouped
-<pandas.core.groupby.DataFrameGroupBy object at 0x0000000003FB6710>
-```
- 
- - `groupby` -function gives us an object called `DataFrameGroupBy` which is similar to list of keys and values (in a dictionary) that we can iterate over.
-  
-```python
-# Iterate over the group object 
-
-for key, values in grouped:
-    individual_fish = values
-    
-# Let's see what is the LAST item that we iterated
->>> print(key, individual_fish)
-```
-
 ### Creating geometries into GeoDataFrame
 
 Since geopandas takes advantage of Shapely geometric objects it is possible to create a Shapefile from a scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into a Shapefile. 
@@ -397,3 +369,75 @@ Now we have successfully created a Shapefile from the scratch using only Python 
 coordinates from a text file (e.g. points) and create Shapefiles from those automatically. 
 
 **Task:** check the output Shapefile in QGIS and make sure that the attribute table seems correct.
+
+## Pro -tips (optional - recommended!)
+
+### Grouping data
+
+One really useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
+This function groups data based on values on selected column(s). 
+
+- Let's group individual fishes in `DAMSELFISH_distribution.shp` and export the species to individual Shapefiles.
+  - *Note: If your `data` -variable doesn't contain the Damselfish data anymore, read the Shapefile again into memory using `gpd.read_file()` -function* 
+
+```python
+# Group the data by column 'binomial'
+>>> grouped = data.groupby('binomial')
+
+# Let's see what we got
+>>> grouped
+<pandas.core.groupby.DataFrameGroupBy object at 0x0000000003FB6710>
+```
+ 
+ - `groupby` -function gives us an object called `DataFrameGroupBy` which is similar to list of keys and values (in a dictionary) that we can iterate over.
+  
+```python
+# Iterate over the group object 
+
+for key, values in grouped:
+    individual_fish = values
+    
+# Let's see what is the LAST item that we iterated
+>>> print(individual_fish)
+TODO: DATA HERE
+```
+
+ - Let's check the datatype of the grouped object and what does the `key` variable contain
+ 
+```python
+>>> type(individual_fish)
+geopandas.geodataframe.GeoDataFrame
+
+>>> print(key)
+'Teixeirichthys jordani'
+```
+
+As can be seen from the example above, each set of data are now grouped into separate GeoDataFrames that we can export into Shapefiles using the variable 'key' 
+for creating the output filepath names. Let's now export those species into individual Shapefiles.
+
+```python
+# Determine outputpath
+outFolder = r"/home/geo/Data"
+
+# Create a new folder called 'Results' (if does not exist) to that folder using os.makedirs() function
+resultFolder = os.path.join(outFolder, 'Results')
+if not os.path.exists(resultFolder):
+    os.makedirs(resultFolder)
+
+# Iterate over the 
+for key, values in grouped:
+    # Format the filename (replace spaces with underscores)
+    outName = "%s.shp" % key.replace(" ", "_")
+    
+    # Print some information for the user
+    print("Processing: %s" % key)
+    
+    # Create an output path
+    outpath = os.path.join(resultFolder, outName)
+    
+    # Export the data
+    values.to_file(outpath)
+```
+
+Now we have saved those individual fishes into separate Shapefiles and named the file according to the species name. These kind of grouping operations can be really 
+handy when dealing with Shapefiles. Doing similar process manually would be really laborious and error-prone.  
