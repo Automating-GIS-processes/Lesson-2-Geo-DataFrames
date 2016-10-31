@@ -259,7 +259,7 @@ for key, values in grouped:
     individual_fish = values
     
 # Let's see what is the LAST item that we iterated
-individual_fish
+>>> print(key, individual_fish)
 ```
 
 ### Creating geometries into GeoDataFrame
