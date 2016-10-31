@@ -224,6 +224,35 @@ Name: area, dtype: object
 Max area: 1493.2
 Mean area: 19.96
 ```
+
+### Grouping data
+
+One useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
+This function groups data based on values on selected column(s). 
+
+- Let's group individual fishes in 'DAMSELFISH.shp' and export the species to individual Shapefiles.
+
+```python
+# Group the data by column 'binomial'
+>>> grouped = data.groupby('binomial')
+
+# Let's see what we got
+>>> grouped
+<pandas.core.groupby.DataFrameGroupBy object at 0x0000000003FB6710>
+```
+ 
+ - `groupby` -function gives us an object called `DataFrameGroupBy` which is similar to list of keys and values (in a dictionary) that we can iterate over.
+  
+```python
+# Iterate over the group object 
+
+for key, values in grouped:
+    individual_fish = values
+    
+# Let's see what is the LAST item that we iterated
+individual_fish
+```
+
 ### Creating geometries into GeoDataFrame
 
 Since geopandas takes advantage of Shapely geometric objects it is possible to create a Shapefile from a scratch by passing Shapely's geometric objects into the GeoDataFrame. This is useful as it makes it easy to convert e.g. a text file that contains coordinates into a Shapefile. 
