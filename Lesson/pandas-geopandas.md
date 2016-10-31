@@ -42,10 +42,11 @@ Once you have downloaded the Data.zip file into your home directory, you can unz
 ```bash
 $ cd $HOME
 $ unzip Data.zip
-$ ls data
-
+$ ls Data
+DAMSELFISH_distributions.dbf   DAMSELFISH_distributions.prj   DAMSELFISH_distributions.sbn   DAMSELFISH_distributions.sbx 
+DAMSELFISH_distributions.shp   DAMSELFISH_distributions.shp.xml   DAMSELFISH_distributions.shx
 ```
-
+The Data folder includes a Shapefile called **DAMSELFISH_distribution.shp** (and files related to it).
 
 ## Working with spatial data using Geopandas
 
@@ -63,7 +64,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Set filepath
-fp = r"C:\HY-Data\HENTENKA\Data\AutoGIS16\Data\DAMSELFISH_distributions.shp"
+fp = r"/home/geo/Data/DAMSELFISH_distributions.shp"
 
 # Read file using gpd.read_file()
 data = gpd.read_file(fp)
@@ -160,7 +161,7 @@ Writing a new Shapefile is also something that is needed frequently.
 
 ```python
 # Create a output path for the data
-out = r"/home/geo/DAMSELFISH_distributions_SELECTION.shp"
+out = r"/home/geo/Data/DAMSELFISH_distributions_SELECTION.shp"
 
 # Select first 50 rows
 selection = data[0:50]
@@ -252,7 +253,7 @@ Mean area: 19.96
 One really useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
 This function groups data based on values on selected column(s). 
 
-- Let's group individual fishes in 'DAMSELFISH.shp' and export the species to individual Shapefiles.
+- Let's group individual fishes in `DAMSELFISH_distribution.shp` and export the species to individual Shapefiles.
 
 ```python
 # Group the data by column 'binomial'
@@ -386,7 +387,7 @@ newdata.crs = from_epsg(4326)
 
 ```python
 # Determine the output path for the Shapefile
-outfp = r"C:\HY-Data\HENTENKA\Data\Senaatintori.shp"
+outfp = r"/home/geo/Data/Senaatintori.shp"
 
 # Write the data into that Shapefile
 newdata.to_file(out)
