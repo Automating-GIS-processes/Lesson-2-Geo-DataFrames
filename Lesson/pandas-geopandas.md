@@ -227,7 +227,7 @@ Mean area: 19.96
 
 ### Grouping data
 
-One useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
+One really useful function that can be used in Pandas/Geopandas is *__<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html" target="_blank">.groupby()</a>__*. 
 This function groups data based on values on selected column(s). 
 
 - Let's group individual fishes in 'DAMSELFISH.shp' and export the species to individual Shapefiles.
