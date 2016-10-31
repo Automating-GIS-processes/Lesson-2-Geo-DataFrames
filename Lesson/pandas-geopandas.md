@@ -34,6 +34,19 @@ It is also possible to do some simple processing with rasters using geopandas wi
 (see [example](http://gis.stackexchange.com/questions/151339/rasterize-a-shapefile-with-geopandas-or-fiona-python)), however there are more feature-rich Python modules for 
 doing raster analysis (will be covered during the [Lesson 7]()). 
 
+## Downloading and extracting data
+
+For this lesson we are using data that you can download from [**here**](https://github.com/Automating-GIS-processes/Lesson-2-Geo-DataFrames/raw/master/data/Data.zip). 
+Once you have downloaded the Data.zip file into your home directory, you can unzip the file using the `unzip` command in the Terminal window.
+ 
+```bash
+$ cd $HOME
+$ unzip Data.zip
+$ ls data
+
+```
+
+
 ## Working with spatial data using Geopandas
 
 Let's start working with spatial data using geopandas. 
