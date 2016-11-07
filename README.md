@@ -7,7 +7,7 @@ functionalities or using [numpy -module](http://www.numpy.org/).
 
  1. [Introduction to Pandas and Geopandas](Lesson/pandas-geopandas.md) 
    - [What are Pandas or Geopandas -modules](Lesson/pandas-geopandas.md#what-are-pandas-and-geopandas--modules)
-   - [Data in / out](Lesson/pandas-geopandas.md#data-i-o--in-out) 
+   - [Data in / out](Lesson/pandas-geopandas.md#data-io-in--out) 
    - [Coordinate reference system (CRS)](Lesson/pandas-geopandas.md#coordinate-reference-system-crs)
    - [Geometries in Geopandas](Lesson/pandas-geopandas.md#geometries-in-geopandas)
    - [Grouping data](Lesson/pandas-geopandas.md#grouping-data)
