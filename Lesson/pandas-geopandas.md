@@ -407,7 +407,6 @@ for key, values in grouped:
     
 # Let's see what is the LAST item that we iterated
 >>> print(individual_fish)
-TODO: DATA HERE
 ```
 
  - Let's check the datatype of the grouped object and what does the `key` variable contain

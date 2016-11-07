@@ -1,7 +1,3 @@
----
-anaconda-cloud: {}
----
-
 # Lesson 2: Working with Geo-DataFrames in Pandas and Geopandas
 
 At this point, we have learned few things about how to deal with data and do processes using Python's own 
@@ -10,6 +6,11 @@ functionalities or using [numpy -module](http://www.numpy.org/).
 ## Lesson overview:
 
  1. [Introduction to Pandas and Geopandas](Lesson/pandas-geopandas.md) 
+   - [What are Pandas or Geopandas -modules](Lesson/pandas-geopandas.md#what-are-pandas-and-geopandas--modules)
+   - [Data in / out](Lesson/pandas-geopandas.md#data-i-o--in-out) 
+   - [Coordinate reference system (CRS)](Lesson/pandas-geopandas.md#coordinate-reference-system-crs)
+   - [Geometries in Geopandas](Lesson/pandas-geopandas.md#geometries-in-geopandas)
+   - [Grouping data](Lesson/pandas-geopandas.md#grouping-data)
  2. [Exercise 2](https://classroom.github.com/assignment-invitations/f6f1d09cc0e970fcec4f3556b6754f4d)
 
 ## Resources
