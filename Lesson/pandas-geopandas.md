@@ -463,8 +463,8 @@ for key, values in grouped:
 33     None  2012  
 
 [7 rows x 24 columns]
-
 ```
+
 From here we can see that an individual_fish variable now contains all the rows that belongs to a fish called *'Teixeirichthys jordani'*. Notice that the index numbers refer to the row numbers in the
 original data -GeoDataFrame. 
 
@@ -507,5 +507,3 @@ for key, values in grouped:
 
 Now we have saved those individual fishes into separate Shapefiles and named the file according to the species name. These kind of grouping operations can be really 
 handy when dealing with Shapefiles. Doing similar process manually would be really laborious and error-prone.
-
-

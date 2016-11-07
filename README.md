@@ -1,7 +1,8 @@
 # Lesson 2: Working with Geo-DataFrames in Pandas and Geopandas
 
 At this point, we have learned few things about how to deal with data and do processes using Python's own 
-functionalities or using [numpy -module](http://www.numpy.org/).
+functionalities or using [numpy -module](http://www.numpy.org/). This week we will start using a specific Data Analysis Library in Python called [**Pandas**](http://pandas.pydata.org/) and its 
+spatial extension [**Geopandas**](http://geopandas.org/) that make working with data and geospatial data easy, efficient and fast. 
   
 ## Lesson overview:
 
