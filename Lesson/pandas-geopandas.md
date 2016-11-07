@@ -407,7 +407,66 @@ for key, values in grouped:
     
 # Let's see what is the LAST item that we iterated
 >>> print(individual_fish)
+
+                  binomial category  \
+27  Teixeirichthys jordani       LC   
+28  Teixeirichthys jordani       LC   
+29  Teixeirichthys jordani       LC   
+30  Teixeirichthys jordani       LC   
+31  Teixeirichthys jordani       LC   
+32  Teixeirichthys jordani       LC   
+33  Teixeirichthys jordani       LC   
+
+                                             citation      class_name  \
+27  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+28  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+29  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+30  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+31  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+32  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+33  Red List Index (Sampled Approach), Zoological ...  ACTINOPTERYGII   
+
+   compiler dist_comm     family_nam      genus_name  \
+27     None      None  POMACENTRIDAE  Teixeirichthys   
+28     None      None  POMACENTRIDAE  Teixeirichthys   
+29     None      None  POMACENTRIDAE  Teixeirichthys   
+30     None      None  POMACENTRIDAE  Teixeirichthys   
+31     None      None  POMACENTRIDAE  Teixeirichthys   
+32     None      None  POMACENTRIDAE  Teixeirichthys   
+33     None      None  POMACENTRIDAE  Teixeirichthys   
+
+                                             geometry     id_no  ...  origin  \
+27  POLYGON ((121.6300326400001 33.04248618400004,...  154915.0  ...       1   
+28  POLYGON ((32.56219482400007 29.97488975500005,...  154915.0  ...       1   
+29  POLYGON ((130.9052090560001 34.02498196400006,...  154915.0  ...       1   
+30  POLYGON ((56.32233070000007 -3.707270205999976...  154915.0  ...       1   
+31  POLYGON ((40.64476131800006 -10.85502363999996...  154915.0  ...       1   
+32  POLYGON ((48.11258402900006 -9.335103113999935...  154915.0  ...       1   
+33  POLYGON ((51.75403543100003 -9.21679305899994,...  154915.0  ...       1   
+
+   phylum_nam rl_update seasonal  source species_na  subpop  subspecies  \
+27   CHORDATA    2012.2        1    None    jordani    None        None   
+28   CHORDATA    2012.2        1    None    jordani    None        None   
+29   CHORDATA    2012.2        1    None    jordani    None        None   
+30   CHORDATA    2012.2        1    None    jordani    None        None   
+31   CHORDATA    2012.2        1    None    jordani    None        None   
+32   CHORDATA    2012.2        1    None    jordani    None        None   
+33   CHORDATA    2012.2        1    None    jordani    None        None   
+
+   tax_comm  year  
+27     None  2012  
+28     None  2012  
+29     None  2012  
+30     None  2012  
+31     None  2012  
+32     None  2012  
+33     None  2012  
+
+[7 rows x 24 columns]
+
 ```
+From here we can see that an individual_fish variable now contains all the rows that belongs to a fish called *'Teixeirichthys jordani'*. Notice that the index numbers refer to the row numbers in the
+original data -GeoDataFrame. 
 
  - Let's check the datatype of the grouped object and what does the `key` variable contain
  
