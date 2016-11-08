@@ -38,18 +38,16 @@ Reading data from text or csv file can be done easily by using
 
 Quite often you are in a situation where you have read data e.g. from text file into a Pandas DataFrame where you have latitude and longitude columns representing the location of a record. 
 
-- Let's continue with the previous example and create a column where we store the shapely geometries:
+- Let's continue with the previous example and consider that we have a column where we have stored the shapely geometries:
 
  ```python
- # Create empty geometry column
- data['geometry'] = None
- 
- # Update the geometries
- for idx, row in data.iterrows():
-     # Create Shapely point object
-     point = Point(row['lon'], row['lat'])
-     # Insert the point into Pandas DataFrame
-     data.loc[idx, 'geometry'] = point
+ >>> print(data)
+     value  lat  lon     geometry
+ 0      0    2    4  POINT (4 2)
+ 1      5    1    6  POINT (6 1)
+ 2      2    6    1  POINT (1 6)
+ 3      6    6    3  POINT (3 6)
+ 4      5    5    1  POINT (1 5)
  ```
  
  - Notice that now our data is still a Pandas **DataFrame**, not a GeoDataFrame:
