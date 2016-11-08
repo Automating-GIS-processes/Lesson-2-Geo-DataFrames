@@ -67,14 +67,6 @@ Quite often you are in a situation where you have read data e.g. from text file 
  >>> type(geo)
  geopandas.geodataframe.GeoDataFrame
  
- >>> print(geo)
-     value  lat  lon     geometry
- 0      0    2    4  POINT (4 2)
- 1      5    1    6  POINT (6 1)
- 2      2    6    1  POINT (1 6)
- 3      6    6    3  POINT (3 6)
- 4      5    5    1  POINT (1 5)
- 
  >>> geo.crs
  {'init': 'epsg:4326', 'no_defs': True}
  ```
