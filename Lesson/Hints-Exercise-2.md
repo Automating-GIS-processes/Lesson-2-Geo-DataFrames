@@ -50,8 +50,10 @@ Quite often you are in a situation where you have read data e.g. from text file 
      point = Point(row['lon'], row['lat'])
      # Insert the point into Pandas DataFrame
      data.loc[idx, 'geometry'] = point
+ ```
  
  - Notice that now our data is still a Pandas **DataFrame**, not a GeoDataFrame:
+ 
  ```python
  >>> type(data)
  pandas.core.frame.DataFrame
